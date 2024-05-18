@@ -1,5 +1,6 @@
-var areaChartData = {
-    labels  : ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Agu', 'Sept', 'Oct', 'Nov', 'Dec'],
+function chartData(params) {
+  var areaChartData = {
+    labels  : ['00:00:10', '00:00:10', '00:00:10'],
     datasets: [
       {
         label               : 'Suhu Ruangan',
@@ -9,7 +10,7 @@ var areaChartData = {
         pointStrokeColor    : '#c1c7d1',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
-        data                : [65, 59, 80, 81, 56, 55, 40]
+        data                : [2, 2, 3]
       },
       {
         label               : 'Suhu Tubuh',
@@ -19,16 +20,19 @@ var areaChartData = {
         pointStrokeColor    : 'rgba(60,141,188,1)',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data                : [28, 48, 40, 19, 86, 27, 90]
+        data                : [20, 20, 3]
       }
     ]
   }
+  return areaChartData;
+}
 //-------------
   //- BAR CHART -
   //-------------
+function chartOption(params) {
   var barChartCanvas                   = $('#barChart').get(0).getContext('2d')
   var barChart                         = new Chart(barChartCanvas)
-  var barChartData                     = areaChartData
+  var barChartData                     = chartData(params)
   barChartData.datasets[1].fillColor   = '#00a65a'
   barChartData.datasets[1].strokeColor = '#00a65a'
   barChartData.datasets[1].pointColor  = '#00a65a'
@@ -62,5 +66,8 @@ var areaChartData = {
 
   barChartOptions.datasetFill = false
   barChart.Bar(barChartData, barChartOptions)
+  console.log(params);
+}
 
-  
+chartOption(12);
+export default chartOption;

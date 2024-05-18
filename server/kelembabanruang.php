@@ -1,6 +1,6 @@
 <?php
-include 'koneksi.php';
-$basesql = "SELECT suhu, kelembaban, waktu  FROM tb_suhuruang";
+include_once 'koneksi.php';
+$basesql = "SELECT suhu, kelembaban, waktu, TIME(waktu) as jam  FROM tb_suhuruang";
 function inputSuhuRuang()
 {
     $suhu = $_POST['suhu'];
@@ -33,7 +33,7 @@ function sortBy()
         $waktu = $_POST['waktu'];
     }
     if($kriteria != "" && $waktu != "") {
-        $fullsql = $fullsql . " WHERE DATE(waktu) = ".$waktu."";
+        $fullsql = $fullsql . " WHERE DATE(waktu) = '".$waktu."'";
         if($kriteria == "tertinggi")
         {
             $fullsql = $fullsql . " ORDER BY suhu AND kelembaban ASC";
@@ -42,7 +42,7 @@ function sortBy()
         }
     } else {
         if ($waktu != "") {
-            $fullsql = $fullsql . " WHERE DATE(waktu) = ".$waktu."";
+            $fullsql = $fullsql . " WHERE DATE(waktu) = '".$waktu."'";
         } elseif($kriteria != ""){
             if($kriteria == "tertinggi")
             {
@@ -52,7 +52,11 @@ function sortBy()
             }
         } 
     }
-    
-    
-    echo $fullsql;
+    $data = [];
+    $sql = mysqli_query(getKoneksi(), $fullsql);
+    while($dt = mysqli_fetch_assoc($sql))
+    {
+        array_push($data, $dt);
+    }
+    echo json_encode($data);
 }
