@@ -1,30 +1,51 @@
-function chartData(params) {
-  var areaChartData = {
-    labels  : ['00:00:10', '00:00:10', '00:00:10'],
-    datasets: [
-      {
-        label               : 'Suhu Ruangan',
-        fillColor           : 'rgba(210, 214, 222, 1)',
-        strokeColor         : 'rgba(210, 214, 222, 1)',
-        pointColor          : 'rgba(210, 214, 222, 1)',
-        pointStrokeColor    : '#c1c7d1',
-        pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',
-        data                : [2, 2, 3]
-      },
-      {
-        label               : 'Suhu Tubuh',
-        fillColor           : 'rgba(60,141,188,0.9)',
-        strokeColor         : 'rgba(60,141,188,0.8)',
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(60,141,188,1)',
-        pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
-        data                : [20, 20, 3]
-      }
-    ]
-  }
-  return areaChartData;
+import {ambil_chartdata}  from "./fetch/endpoint.js";
+var jam = [];
+var suhu_tubuh = [];
+var suhu_ruangan = [];
+const requestOptions = {
+  method: "GET",
+  redirect: "follow"
+};
+
+await fetch(ambil_chartdata, requestOptions)
+  .then((response) => response.json())
+  .then((data) => {
+    for (let i = 0; i < data['jam'].length; i++) {
+      jam[i] = data['jam'][i];
+    }
+    for (let i = 0; i < data['suhu_ruang'].length; i++) {
+      suhu_ruangan[i] = data['suhu_ruang'][i];
+    }
+    for (let i = 0; i < data['suhu_tubuh'].length; i++) {
+      suhu_tubuh[i] = data['suhu_tubuh'][i];
+    }
+})
+.catch((error) => console.error(error));
+console.log(jam);
+var areaChartData = {
+  labels  : jam,
+  datasets: [
+    {
+      label               : 'Suhu Ruangan',
+      fillColor           : 'rgba(210, 214, 222, 1)',
+      strokeColor         : 'rgba(210, 214, 222, 1)',
+      pointColor          : 'rgba(210, 214, 222, 1)',
+      pointStrokeColor    : '#c1c7d1',
+      pointHighlightFill  : '#fff',
+      pointHighlightStroke: 'rgba(220,220,220,1)',
+      data                : suhu_ruangan
+    },
+    {
+      label               : 'Suhu Tubuh',
+      fillColor           : 'rgba(60,141,188,0.9)',
+      strokeColor         : 'rgba(60,141,188,0.8)',
+      pointColor          : '#3b8bba',
+      pointStrokeColor    : 'rgba(60,141,188,1)',
+      pointHighlightFill  : '#fff',
+      pointHighlightStroke: 'rgba(60,141,188,1)',
+      data                : suhu_tubuh
+    }
+  ]
 }
 //-------------
   //- BAR CHART -
@@ -32,7 +53,7 @@ function chartData(params) {
 function chartOption(params) {
   var barChartCanvas                   = $('#barChart').get(0).getContext('2d')
   var barChart                         = new Chart(barChartCanvas)
-  var barChartData                     = chartData(params)
+  var barChartData                     = areaChartData
   barChartData.datasets[1].fillColor   = '#00a65a'
   barChartData.datasets[1].strokeColor = '#00a65a'
   barChartData.datasets[1].pointColor  = '#00a65a'
@@ -66,8 +87,8 @@ function chartOption(params) {
 
   barChartOptions.datasetFill = false
   barChart.Bar(barChartData, barChartOptions)
-  console.log(params);
 }
-
 chartOption(12);
+
+
 export default chartOption;
