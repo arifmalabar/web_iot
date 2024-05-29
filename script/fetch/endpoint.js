@@ -4,5 +4,6 @@ const ambil_suhutubuh = url + "api_suhutubuh.php";
 const ambil_suhuruang = url + "api_suhuruang.php";
 const short_suhuruang = url + "api_shorting.php";
 const ambil_chartdata = url + "chart_data.php";
+const ambil_recapt = url + "api_recapt.php";
 
-export {ambil_suhutubuh, ambil_suhuruang, short_suhuruang, ambil_chartdata};
+export {ambil_suhutubuh, ambil_suhuruang, short_suhuruang, ambil_chartdata, ambil_recapt};

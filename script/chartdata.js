@@ -49,7 +49,7 @@ var areaChartData = {
 //-------------
   //- BAR CHART -
   //-------------
-function chartOption(params) {
+function chartOption() {
   var barChartCanvas                   = $('#barChart').get(0).getContext('2d')
   var barChart                         = new Chart(barChartCanvas)
   var barChartData                     = areaChartData
@@ -87,7 +87,7 @@ function chartOption(params) {
   barChartOptions.datasetFill = false
   barChart.Bar(barChartData, barChartOptions)
 }
-chartOption(12);
+//chartOption();
 
 
 export default chartOption;

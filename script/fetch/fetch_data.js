@@ -1,8 +1,6 @@
-import {ambil_suhuruang, ambil_suhutubuh} from "./endpoint.js";
+import {ambil_suhuruang, ambil_suhutubuh, ambil_recapt} from "./endpoint.js";
 import {showDataSuhuTubuh, showDataSuhuRuang} from "../datatable.js";
-export function showRecapt() {
-    
-}
+import { showRecapt } from "../recapt.js";
 export function getDataSuhuTubuh() {
     
     const requestOptions = {
@@ -21,10 +19,9 @@ export function getDataSuhuTubuh() {
     });
 }
 export function getDataSuhuRuang() {
-    console.log('oke');
     const requestOptions = {
-    method: "GET",
-    redirect: "follow"
+        method: "GET",
+        redirect: "follow"
     };
     
     fetch(ambil_suhuruang, requestOptions)
@@ -33,6 +30,22 @@ export function getDataSuhuRuang() {
     })
     .then((result) => { 
         showDataSuhuRuang(result);
+    }).catch((error) => {
+        console.error(error)
+    });
+}
+export async function recaptSuhu() {
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
+    
+    await fetch(ambil_recapt, requestOptions)
+    .then((response) => {
+        return response.json()
+    })
+    .then((result) => { 
+        showRecapt(result);
     }).catch((error) => {
         console.error(error)
     });
