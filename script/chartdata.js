@@ -21,7 +21,6 @@ await fetch(ambil_chartdata, requestOptions)
     }
 })
 .catch((error) => console.error(error));
-console.log(jam);
 var areaChartData = {
   labels  : jam,
   datasets: [

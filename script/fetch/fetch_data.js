@@ -1,5 +1,8 @@
 import {ambil_suhuruang, ambil_suhutubuh} from "./endpoint.js";
 import {showDataSuhuTubuh, showDataSuhuRuang} from "../datatable.js";
+export function showRecapt() {
+    
+}
 export function getDataSuhuTubuh() {
     
     const requestOptions = {
