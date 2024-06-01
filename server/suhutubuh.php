@@ -10,7 +10,7 @@ function inputSuhu()
 function tampilkanSuhu()
 {
     $data = [];
-    $sql = mysqli_query(getKoneksi(), $GLOBALS['base_sql']);
+    $sql = mysqli_query(getKoneksi(), $GLOBALS['base_sql']." WHERE DATE(waktu) = DATE(NOW())");
     while ($dt = mysqli_fetch_assoc($sql)) {
         array_push($data, $dt);
     }

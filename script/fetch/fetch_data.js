@@ -1,6 +1,7 @@
 import {ambil_suhuruang, ambil_suhutubuh, ambil_recapt} from "./endpoint.js";
 import {showDataSuhuTubuh, showDataSuhuRuang} from "../datatable.js";
 import { showRecapt } from "../recapt.js";
+import { showKelembabanRuang, showDataTubuh } from "../CekSuhu.js";
 export function getDataSuhuTubuh() {
     
     const requestOptions = {
@@ -14,6 +15,7 @@ export function getDataSuhuTubuh() {
     })
     .then((result) => { 
         showDataSuhuTubuh(result);
+        showDataTubuh(result);
     }).catch((error) => {
         console.error(error)
     });
@@ -30,6 +32,7 @@ export function getDataSuhuRuang() {
     })
     .then((result) => { 
         showDataSuhuRuang(result);
+        showKelembabanRuang(result);
     }).catch((error) => {
         console.error(error)
     });

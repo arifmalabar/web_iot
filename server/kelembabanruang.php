@@ -15,7 +15,7 @@ function inputSuhuRuang()
 function getSuhuRuang()
 {
     $data = [];
-    $sql = mysqli_query(getKoneksi(), $GLOBALS['basesql']);
+    $sql = mysqli_query(getKoneksi(), $GLOBALS['basesql'] ." WHERE DATE(waktu) = DATE(NOW())");
     while ($dt = mysqli_fetch_assoc($sql)) {
         array_push($data, $dt);
     }
